@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package room;
+
+
+message Room {
+    string suit = 1;
+    string max_people = 2;
+    string wifi = 3;
+    repeated int32 checkins = 4;
+    repeated int32 checkouts = 5;
+}
+
+message ListRoom {
+    repeated Room rooms = 1;
+}
+
+message Book {
+    int32 position = 1;
+    string date_in = 2 ;
+    string date_out = 3;
+}
+
+message Position {
+    int32 position = 1;
+}
+
+message AvailableMsg {
+    string msg = 1;
+}
+
+message Empty {}
+
+service RoomServices {
+    rpc GetRooms (Empty) returns (ListRoom);
+    rpc GetRoom (Position) returns (Room);
+    rpc CreateRoom (Room) returns (Empty);
+    rpc BookRoom (Book) returns (AvailableMsg);
+    rpc AvailableDates (Position) returns (Room);
+
+}
